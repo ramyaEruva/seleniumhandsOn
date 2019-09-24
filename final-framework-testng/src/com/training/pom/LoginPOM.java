@@ -1,17 +1,13 @@
 package com.training.pom;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.training.sanity.tests.dropdown;
-import com.training.sanity.tests.user;
-
 public class LoginPOM {
 	private WebDriver driver; 
-	String userNm;
-	String pwd;
 	
 	public LoginPOM(WebDriver driver) {
 		this.driver = driver; 
@@ -26,33 +22,60 @@ public class LoginPOM {
 	
 	@FindBy(id="form-login_submitAuth")
 	private WebElement loginBtn; 
-	@FindBy(linkText="Site Owner")
+
+	@FindBy(className = "close")
+	private WebElement closeBtn;
+
+	@FindBy(className="dropdown")
 	private WebElement dropDown;
 	
+	@FindBy(id="logout_button")
+	private WebElement logoutButton;
+	
+
+	@FindBy(className = "homepage")
+	private WebElement homePage;
+	
+	public WebElement homePage() {
+		return homePage;
+	}
+	
+	public void clickLogoutButton() {
+		logoutButton.click();
+	}
+	public WebElement getDropDown() {
+		return dropDown;
+	}
+
 	public void sendUserName(String userName) {
 		this.userName.clear();
 		this.userName.sendKeys(userName);
-		userNm=userName;
 	}
 	public String getUserName() {
-		
-		return userNm;
+		return userName.getAttribute("value");
 	}
 		
 	
 	public void sendPassword(String password) {
 		this.password.clear(); 
-		this.password.sendKeys(password); 
-		pwd=password;
+		this.password.sendKeys(password);
 	}
 	public String getPassword() {
-		
-		return pwd;
+		return password.getAttribute("value");
 	}
 	
+	public void clickCloseBtn() {
+		this.closeBtn.click();
+	}
+	
+	public WebElement getLoginBtn() {
+		return loginBtn;
+	}
+
 	public void clickLoginBtn() {
 		this.loginBtn.click(); 
 	}
+
 	public void clickDropDown()
 	{
 		this.dropDown.click();
